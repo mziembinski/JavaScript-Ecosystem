@@ -37,7 +37,20 @@ Based on github repos and npm stats I will check how often new version of each f
 The analysis is done with [R](https://www.r-project.org/) and presented using [GitHub Pages](https://pages.github.com/). All codes are avaiable on GitHub
 <!--add repo link -->
 
-## Front-End frameworks
+
+## JS frameworks
+
+|owner     |name     |date_min   |version_first |date_max   |version_last |
+|:---------|:--------|:----------|:------------:|:----------|:-----------:|
+|angular   |angular  |2015-03-14 |0.0.1         |2017-06-01 |4.2.0        |
+|jashkenas |backbone |2010-10-13 |0.1.0         |2016-04-05 |1.3.3        |
+|webpack   |webpack  |2013-12-19 |1.0.0         |2017-06-07 |3.0.0        |
+|nodejs    |node     |2009-05-27 |0.0.1         |2017-06-06 |8.0.0        |
+|meteor    |meteor   |2011-12-10 |0.0.40        |2017-06-06 |1.6          |
+|emberjs   |ember.js |2011-06-18 |0.9           |2017-05-31 |2.14.0       |
+|facebook  |react    |2013-07-02 |0.3.0         |2017-05-01 |15.5.4       |
+|vuejs     |vue      |2013-12-07 |0.6.0         |2017-05-09 |2.3.3        |
+|reactjs   |redux    |2015-06-02 |0.2.0         |2016-09-04 |3.6.0        |
 
 ### React
 
@@ -46,7 +59,7 @@ The analysis is done with [R](https://www.r-project.org/) and presented using [G
 
 ## Appendix
 
-###Something about JS
+### Something about JS
 
 * [Overview of the JavaScript ecosystem](https://medium.com/@bojzi/overview-of-the-javascript-ecosystem-8ec4a0b7a7be)
 
@@ -72,3 +85,9 @@ I won't go into details of the details of a software release life cycle, as they
 
 * [awesome-graphql](https://github.com/chentsulin/awesome-graphql)
 * [APIs-guru](https://github.com/APIs-guru/graphql-apis)
+
+### To Do
+
+* analyze react, node and maybe angular as the beginning
+* download other libriaries
+* github pages webpage to present data
