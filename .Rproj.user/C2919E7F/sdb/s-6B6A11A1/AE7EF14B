@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "download_graphql<-function(owner,name,n=100,before=NA){\n  \n  qry <- Query$new()\n  \n  if(is.na(before)){\n    qry$query(query, paste0('{\n    repository(owner:\"',owner,'\", name:\"',name,'\") {\n          description\n          releases(last:',n,'){\n          totalCount\n          edges{\n          cursor\n          node{\n          name\n          url\n          publishedAt\n          }}}}}'))\n    \n  }\n\n  if(!is.na(before)){\n    qry$query(query, paste0('{\n                            repository(owner:\"',owner,'\", name:\"',name,'\") {\n                            description\n                            releases(last:',n,' before:\"',before,'\"){\n                            totalCount\n                            edges{\n                            cursor\n                            node{\n                            name\n                            url\n                            publishedAt\n                            }}}}}'))\n    \n    }  \n  \n  result<-cli$exec(qry$queries$query)\n  \n  if(length(result$data$repository$releases$edges)==0){\n    print(\"There is no info in GraphQL database\")\n    return(NULL)\n  }\n  \n  return_data<-list(\"totalCount\"=result$data$repository$releases$totalCount,\n                    \"data\"=data.table(owner=owner,name=name,\n                                      cursor=result$data$repository$releases$edges$cursor,\n                                      result$data$repository$releases$edges$node))\n  \n  return(return_data)\n}\n",
+    "created" : 1496775922657.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2245643285",
+    "id" : "AE7EF14B",
+    "lastKnownWriteTime" : 1496857621,
+    "last_content_update" : 1496857621263,
+    "path" : "C:/Users/Michal/Dropbox/!!!_blog/JavaScript_trends/download_graphql.R",
+    "project_path" : "download_graphql.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

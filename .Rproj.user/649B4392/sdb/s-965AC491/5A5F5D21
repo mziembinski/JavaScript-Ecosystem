@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#### install packages\n\n#install.packages(\"bigrquery\")\n\ninstall.packages('devtools') \ndevtools::install_github(\"rstats-db/bigrquery\")\nlibrary(bigrquery)\n\nlibrary(data.table)\nlibrary(ggplot2)\n\n#### download data ####\n# Use your project ID here\nproject <- \"httparchiveproject\" # put your project ID here\n\ndates<-c(\"2013_03_01\",\"2014_03_01\",\"2015_03_01\",\"2016_03_01\",\"2017_03_01\")\n\nfor(i in 1:length(dates)){\n  # query \n  sql <- paste0(\"SELECT pages.pageid pageid, url, type,req_host,reqHeadersSize,respHeadersSize, pages.rank rank FROM [httparchive:runs.\",dates[i],\"_pages] as pages JOIN (\n  SELECT REGEXP_EXTRACT(url,r'(.*\\\\.js)') type, pageid,req_host,reqHeadersSize,respHeadersSize FROM [httparchive:runs.\",dates[i],\"_requests]\n  WHERE REGEXP_MATCH(url, r'(.*\\\\.js)')) as lib ON lib.pageid = pages.pageid\n  WHERE rank IS NOT NULL and rank<50000\n  ORDER BY rank asc\")\n  \n  # Execute the query and store the result\n  \n  #js <- query_exec(sql, project = project)\n  \n  js <- query_exec(sql, project = project, max_pages = Inf)\n  js<-data.table(js)\n  js[,date:=dates[i]]\n\n  js[,jsI:=1]\n  js[,jsI:=as.numeric(cumsum(jsI)),by=pageid]\n  \n  save(js, file=paste0(\"requests_\",dates[i],\".RData\"))\n  \n}\n\n\njs[,.N,by=.(rank,url)][1:50]\n\nggplot(js[,.N,by=.(rank,url)],aes(rank,N))+geom_point()+geom_smooth()\nggplot(js[,.N,by=.(rank,url)],aes(N))+geom_histogram(bins=50)\n\n#### download data ####\n\nfor(j in 1:length(dates)){\n  \n  print(j)\n  print(Sys.time())\n  \n  load(file=paste0(\"requests_\",dates[j],\".RData\"))\n\n  js[,jsI:=1]\n  js[,jsI:=as.numeric(cumsum(jsI)),by=pageid]\n\n## js extraction\n\n  for(i in 1:10000){\n    ifelse(i==1,jsfiles<-data.table(pageid=js$pageid[i],strsplit(js$type[i],\",|&\")[[1]]),\n                jsfiles<-rbind(jsfiles,data.table(pageid=js$pageid[i],strsplit(js$type[i],\",|&\")[[1]])))\n  \n    x<-strsplit(strsplit(js$type[i],\",|&\")[[1]],\"/\")\n    names(x)<-sprintf(\"%03d_js_\",c(1:length(x)))\n    names(x)<-sprintf(\"%03d_js_\",c(1:length(x)))\n    x<-data.table(data.frame(unlist(x)),keep.rownames=T)\n    x[,pageid:=js$pageid[i]]\n    x[,jsI:=js$jsI[i]]\n    \n    ifelse(i==1,jspaths<-x,\n           jspaths<-rbind(jspaths,x))\n  }\n\nsetnames(jspaths,c(\"rn\",\"unlist.x.\"),c(\"jsfile\",\"pathPart\"))\n\njspaths[,i:=as.numeric(substr(jsfile,8,nchar(jsfile)))]\njspaths[,jsfile:=substr(jsfile,1,6)]\njspaths[,i_max:=max(i),by=.(pageid,jsfile,jsI)]\n\njspaths[,i:=i_max-i+1]\njspaths[,i_max:=NULL]\n\njsfiles[,date:=dates[j]]\njspaths[,date:=dates[j]]\n\nifelse(j==1,jsfiles_all<-jsfiles,\n       jsfiles_all<-rbind(jsfiles_all,jsfiles))\n\nifelse(j==1,jspaths_all<-jspaths,\n       jspaths_all<-rbind(jspaths_all,jspaths))\n}\n\n\n\n\n##\n\njs[grepl(\"buzzfeed\",url)]\njs[grepl(\"www.apple.com\",url)][order(date)]\n\njspaths_all[,.N,by=date]\njsfiles_all[,.N,by=date]\n\njspaths_all[i<4][,.N,by=pathPart][order(-N)][N>200]\njspaths_all[i==1][,.N,by=pathPart][order(-N)][N>30]\njspaths_all[i==2][,.N,by=pathPart][order(-N)][N>50]\njspaths_all[i==3][,.N,by=pathPart][order(-N)][N>50]\njspaths_all[i==4][,.N,by=pathPart][order(-N)][N>30]\njspaths_all[i==5][,.N,by=pathPart][order(-N)][N>30]\n\njspaths_all[grepl(\"^[0-9]{1,10}$\",pathPart)]\njspaths_all[grepl(\"^\\\\d*\\\\.\\\\d*\\\\.?\\\\d*$\",pathPart)][,.N,by=pathPart][order(-N)][N>5]\n\njspaths_all[jspaths_all[pathPart==\"1.2200.2\",.(jsfile,pageid)],on=.(jsfile,pageid)][i<5][1:20]\n",
+    "created" : 1493831054144.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "60|20|73|2|\n",
+    "hash" : "1445934177",
+    "id" : "5A5F5D21",
+    "lastKnownWriteTime" : 1494021004,
+    "last_content_update" : 1494021182872,
+    "path" : "C:/Users/Michal/Dropbox/!!!_blog/JavaScript_trends/data_processing.R",
+    "project_path" : "data_processing.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

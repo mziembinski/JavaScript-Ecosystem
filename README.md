@@ -34,7 +34,7 @@ Based on github repos and npm stats I will check how often new version of each f
 * Node.js :white_check_mark:
 
 
-The analysis is done with [R](https://www.r-project.org/) and presented using [GitHub Pages](https://pages.github.com/). All codes are avaiable on GitHub
+The analysis is done with [R](https://www.r-project.org/) and presented using [GitHub Pages](https://pages.github.com/). All codes are available on GitHub
 <!--add repo link -->
 
 
@@ -53,6 +53,23 @@ The analysis is done with [R](https://www.r-project.org/) and presented using [G
 |reactjs   |redux    |2015-06-02 |0.2.0         |2016-09-04 |3.6.0        |
 
 ### React
+
+Last 10 releases:
+|owner    |name  |date       |version |version_ext |
+|:--------|:-----|:----------|:-------|:-----------|
+|facebook |react |2017-05-01 |v15.5.1 |15.5.1      |
+|facebook |react |2017-05-01 |v15.5.2 |15.5.2      |
+|facebook |react |2017-05-01 |v15.5.3 |15.5.3      |
+|facebook |react |2017-05-01 |v15.5.4 |15.5.4      |
+|facebook |react |2017-04-07 |v15.5.0 |15.5.0      |
+|facebook |react |2017-01-06 |v15.4.2 |15.4.2      |
+|facebook |react |2016-11-23 |v15.4.1 |15.4.1      |
+|facebook |react |2016-11-16 |v15.4.0 |15.4.0      |
+|facebook |react |2016-09-19 |v15.3.2 |15.3.2      |
+|facebook |react |2016-08-19 |v15.3.1 |15.3.1      |
+
+![React versioning](images/react.png)
+
 
 ### Angular
 

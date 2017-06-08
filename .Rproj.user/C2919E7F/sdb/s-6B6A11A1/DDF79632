@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "web_scrap<-function(owner,name,n,wait){\n  \n  doc<-GET(paste0(\"https://github.com/\",owner,\"/\",name,\"/tags\"))\n  doc = htmlParse(doc)\n  \n  els = getNodeSet(doc, '//*[contains(concat( \" \", @class, \" \" ), concat( \" \", \"date\", \" \" ))] | //*[contains(concat( \" \", @class, \" \" ), concat( \" \", \"tag-name\", \" \" ))]')\n  \n  tmp<-data.table(date=sapply(els, function(el) xmlValue(el))[seq(1,length(els)-1,2)],\n                  version=sapply(els, function(el) xmlValue(el))[seq(2,length(els),2)])\n  \n  lct <- Sys.getlocale(\"LC_TIME\"); Sys.setlocale(\"LC_TIME\", \"C\")\n  \n  for(i in 1:n){\n    if(i%%50==0){print(i)}\n    doc<-GET(paste0(\"https://github.com/\",owner,\"/\",name,\"/tags?after=\",tmp$version[nrow(tmp)]))\n    doc = htmlParse(doc)\n    \n    els = getNodeSet(doc, '//*[contains(concat( \" \", @class, \" \" ), concat( \" \", \"date\", \" \" ))] | //*[contains(concat( \" \", @class, \" \" ), concat( \" \", \"tag-name\", \" \" ))]')\n    if(length(els)==0){\n      print(i)\n      break\n      }\n    tmp<-rbind(tmp,data.table(date=sapply(els, function(el) xmlValue(el))[seq(1,length(els)-1,2)],\n                              version=sapply(els, function(el) xmlValue(el))[seq(2,length(els),2)]))\n    Sys.sleep(wait);\n    if(nrow(tmp)%%10!=0|tmp$date[nrow(tmp)]==\"NULL\"){\n      print(i)\n      break}}\n  \n  tmp<-tmp[date!=\"NULL\"]\n  final_scp<-data.table(owner=owner,name=name,tmp)\n  \n  # final formatting\n  final_scp[,date:=as.Date(gsub(\"[[:space:]]\",\"\",date),\"%b%e,%Y\")]\n  final_scp[,version_ext:=str_extract(version,\"\\\\d*\\\\.\\\\d*\\\\.\\\\d*\")]\n  \n  Sys.setlocale(\"LC_TIME\", lct)\n  \n  return(final_scp)\n}",
+    "created" : 1496779302079.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2760369514",
+    "id" : "DDF79632",
+    "lastKnownWriteTime" : 1496868063,
+    "last_content_update" : 1496868063359,
+    "path" : "C:/Users/Michal/Dropbox/!!!_blog/JavaScript_trends/web_scrap.R",
+    "project_path" : "web_scrap.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
