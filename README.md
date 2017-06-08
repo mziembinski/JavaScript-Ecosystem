@@ -1,6 +1,9 @@
 # JS ecosystem
 
+> as for 05.05.2017
+
 ## Introduction
+
 The influential post [How it feels to learn JavaScript in 2016](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f "How it feels to learn JavaScript in 2016
 ") highlighted important feature of JavaScript - a vast amount of JavaScript frameworks avaiable for developers.
 But feelings are not enough to describe the whole ecosystem and we need some data. Some of them were collected by [the State of JavaScript Survey](http://stateofjs.com/ "The State of Javascript") where we can find answers to questions on topics ranging from front-end frameworks and state management, to build tools and testing libraries.
@@ -59,7 +62,7 @@ Some frameworks use only numeric versioning, while other use also extended tags 
 Some data was downloaded using [GitHub GraphQL api](https://developer.github.com/v4/), some using webscrapping techniques. For more details see R codes.
 
 ### React
-Facebook with its React repo is using mainly number versioning.  After version v0.14.8 facebook change the versioning and started with the version v15.0.0. See tables below:
+Facebook with its [react repo](https://github.com/facebook/react) is using mainly number versioning.  After version v0.14.8 facebook change the versioning and started with the version v15.0.0. See tables below:
 
 Last 10 releases:
 
@@ -96,8 +99,28 @@ Major versions:
 
 ![React since previous release](images/react_since.png)
 
-### Angular
+### Node
 
+Nodejs with its [node repo](https://github.com/nodejs/node/) is using number versioning, however they are releasing so often that in description you have details about each release. Maybe in the future I will extend the analysis with those details.
+
+Last 10 releases:
+
+|owner  |name |date       |version |version_ext |
+|:------|:----|:----------|:-------|:-----------|
+|nodejs |node |2017-06-06 |v6.11.0 |6.11.0      |
+|nodejs |node |2017-05-30 |v8.0.0  |8.0.0       |
+|nodejs |node |2017-05-03 |v7.10.0 |7.10.0      |
+|nodejs |node |2017-05-02 |v6.10.3 |6.10.3      |
+|nodejs |node |2017-05-02 |v4.8.3  |4.8.3       |
+|nodejs |node |2017-04-11 |v7.9.0  |7.9.0       |
+|nodejs |node |2017-04-04 |v4.8.2  |4.8.2       |
+|nodejs |node |2017-04-04 |v6.10.2 |6.10.2      |
+|nodejs |node |2017-03-29 |v7.8.0  |7.8.0       |
+|nodejs |node |2017-03-21 |v7.7.4  |7.7.4       |
+
+![Node versioning](images/node.png)
+
+![Node since previous release](images/node_since.png)
 
 ## Appendix
 
