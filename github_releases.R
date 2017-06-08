@@ -103,6 +103,12 @@ temp<-web_scrap("emberjs","ember.js",100,2)
 temp
 finalscp<-rbind(finalscp,temp)
 
+#nodejs
+temp<-web_scrap("facebook","react",20,1)
+temp
+finalscp<-rbind(finalscp,temp)
+
+
 # check
 finalscp[,.N,by=.(owner,name)]
 
@@ -122,7 +128,9 @@ finalql[,id:=.I]
 finalql[,version:=gsub(paste0("https://github.com/",owner,"/",name,"/releases/tag/"),"",url),by=id]
 finalql[,version_ext:=str_extract(url,"\\d*\\.\\d*\\.\\d*")]
 
-final<-rbind(final,finalql[,.(owner,name,date,version,version_ext)])
+final<-rbind(final,finalql[name!="react"][,.(owner,name,date,version,version_ext)])
+
+write.csv(final,file="data/final.csv")
 
 # summary
 finalsm<-final[,.(date_min=min(date),date_max=max(date),
@@ -167,19 +175,36 @@ final[,calculated_ver:=as.numeric(V1)*1e6+as.numeric(V2)*1e3+as.numeric(V3)]
 
 final[name=="react"]
 
-kable(final[name=="react"][order(-date)][1:10])
+kable(final[name=="react"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
 
 ggdata<-final[name=="react"]
 ggdata[V1=="15",major:="15"]
 ggdata[V1!="15",major:=V2]
+ggdata[,major:=as.numeric(major)]
 
-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=major))+
+g<-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=factor(major)))+
   geom_point(size=2)+
-  theme_bw()+labs(y="versions")
+  theme_bw()+labs(y="versions",color="Major release",title="Releases dates")+
+  theme(plot.title = element_text(hjust = 0.5))
 
-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=major))+
-  geom_point(size=2)+facet_grid(major~.,scale='free')+
-  theme_bw()+labs(y="versions")
+ggsave(g,file="images/react.png",width=15,height=12,units="cm")
+
+temp<-ggdata[,.(.N,date_first=min(date),date_last=max(date)),
+             by=.(owner,name,major)]
+temp[,previous:=shift(date_first,1)]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
+
+kable(temp)
+
+g<-ggplot(temp,aes(major,since_previous,fill=factor(major)))+
+  geom_bar(stat="identity")+coord_flip()+
+  theme_bw()+labs(y="Major release",
+                  fill="Major release",title="Days since first release of previous major")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+g
+
 
 #### plotting ####
 

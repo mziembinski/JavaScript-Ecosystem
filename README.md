@@ -40,6 +40,8 @@ The analysis is done with [R](https://www.r-project.org/) and presented using [G
 
 ## JS frameworks
 
+As for now the data about folowing frameworks was downloaded.
+
 |owner     |name     |date_min   |version_first |date_max   |version_last |
 |:---------|:--------|:----------|:------------:|:----------|:-----------:|
 |angular   |angular  |2015-03-14 |0.0.1         |2017-06-01 |4.2.0        |
@@ -52,7 +54,12 @@ The analysis is done with [R](https://www.r-project.org/) and presented using [G
 |vuejs     |vue      |2013-12-07 |0.6.0         |2017-05-09 |2.3.3        |
 |reactjs   |redux    |2015-06-02 |0.2.0         |2016-09-04 |3.6.0        |
 
+Some frameworks use only numeric versioning, while other use also extended tags (e.g. rc1, rc2, etc. - see [versioning](#Versioning)).
+
+Some data was downloaded using [GitHub GraphQL api](https://developer.github.com/v4/), some using webscrapping techniques. For more details see R codes.
+
 ### React
+Facebook with its React repo is using mainly number versioning.  After version v0.14.8 facebook change the versioning and started with the version v15.0.0. See tables below:
 
 Last 10 releases:
 
@@ -69,8 +76,25 @@ Last 10 releases:
 |facebook |react |2016-09-19 |v15.3.2 |15.3.2      |
 |facebook |react |2016-08-19 |v15.3.1 |15.3.1      |
 
+Major versions:
+
+|owner    |name  | major|  N|date_first |date_last  |previous   |since_release |since_previous |
+|:--------|:-----|-----:|--:|:----------|:----------|:----------|:-------------|:--------------|
+|facebook |react |    15| 20|2016-03-08 |2017-05-01 |2015-07-03 |419 days      |249 days       |
+|facebook |react |    14| 13|2015-07-03 |2016-03-29 |2015-02-22 |270 days      |131 days       |
+|facebook |react |    13|  6|2015-02-22 |2015-05-08 |2014-10-16 |75 days       |129 days       |
+|facebook |react |    12|  4|2014-10-16 |2014-12-18 |2014-07-13 |63 days       |95 days        |
+|facebook |react |    11|  4|2014-07-13 |2014-09-16 |2014-03-19 |65 days       |116 days       |
+|facebook |react |    10|  2|2014-03-19 |2014-03-21 |2014-02-17 |2 days        |30 days        |
+|facebook |react |     9|  2|2014-02-17 |2014-02-20 |2013-12-19 |3 days        |60 days        |
+|facebook |react |     8|  1|2013-12-19 |2013-12-19 |2013-10-16 |0 days        |64 days        |
+|facebook |react |     5|  3|2013-10-16 |2013-12-18 |2013-07-17 |63 days       |91 days        |
+|facebook |react |     4|  3|2013-07-17 |2013-12-18 |2013-05-29 |154 days      |49 days        |
+|facebook |react |     3|  2|2013-05-29 |2013-06-20 |NA         |22 days       |NA             |
+
 ![React versioning](images/react.png)
 
+![React since previous release](images/react_since.png)
 
 ### Angular
 
@@ -106,6 +130,7 @@ I won't go into details of the details of a software release life cycle, as they
 
 ### To Do
 
-* analyze react, node and maybe angular as the beginning
+* why release dates are different in graphql database and tags web?
+> diff between releases and tags. React data suggest that tag dates are better (see react ver. 0.10-0.12). 
 * download other libriaries
 * github pages webpage to present data
