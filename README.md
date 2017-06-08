@@ -55,6 +55,7 @@ The analysis is done with [R](https://www.r-project.org/) and presented using [G
 ### React
 
 Last 10 releases:
+
 |owner    |name  |date       |version |version_ext |
 |:--------|:-----|:----------|:-------|:-----------|
 |facebook |react |2017-05-01 |v15.5.1 |15.5.1      |
