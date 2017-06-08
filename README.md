@@ -92,7 +92,7 @@ Major versions:
 |facebook |react |     4|  3|2013-07-17 |2013-12-18 |2013-05-29 |154 days      |49 days        |
 |facebook |react |     3|  2|2013-05-29 |2013-06-20 |NA         |22 days       |NA             |
 
-![React versioning](images/react.png)
+![React versioning](images/react2.png)
 
 ![React since previous release](images/react_since.png)
 
