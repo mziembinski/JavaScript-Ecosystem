@@ -1,4 +1,5 @@
-packages<-c("data.table","ggplot2","jsonlite","curl","httr","stringr","scales","ghql","graphql","XML","plotly","knitr")
+packages<-c("data.table","ggplot2","jsonlite","curl","httr","stringr","scales",
+            "ghql","graphql","XML","plotly","knitr","RColorBrewer")
 
 #lapply(packages, install.packages)
 
@@ -187,11 +188,11 @@ g<-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=factor(major
   theme_bw()+labs(y="versions",color="Major release",title="Releases dates")+
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave(g,file="images/react.png",width=15,height=12,units="cm")
+ggsave(g,file="images/react2.png",width=15,height=12,units="cm")
 
-temp<-ggdata[,.(.N,date_first=min(date),date_last=max(date)),
+temp<-ggdata[major!=0][,.(.N,date_first=min(date),date_last=max(date)),
              by=.(owner,name,major)]
-temp[,previous:=shift(date_first,1)]
+temp[,previous:=shift(date_first,1,type="lead")]
 temp[,since_release:=date_last-date_first]
 temp[,since_previous:=date_first-previous]
 
@@ -199,12 +200,56 @@ kable(temp)
 
 g<-ggplot(temp,aes(major,since_previous,fill=factor(major)))+
   geom_bar(stat="identity")+coord_flip()+
-  theme_bw()+labs(y="Major release",
+  theme_bw()+labs(x="Major release",y="",
                   fill="Major release",title="Days since first release of previous major")+
   theme(plot.title = element_text(hjust = 0.5))
 
-g
+ggsave(g,file="images/react_since.png",width=15,height=12,units="cm")
 
+#### nodejs ####
+final[name=="node"]
+
+kable(final[name=="node"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
+
+ggdata<-final[name=="node"][!is.na(V1)]
+ggdata[,major:=as.numeric(V1)]
+
+ggdata$version_ext
+
+g<-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=factor(major)))+
+  geom_point(size=2)+
+  theme_bw()+labs(y="versions",color="Major release",title="Releases dates")+
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.ticks.y=element_blank(),
+        axis.text.y = element_blank(),
+        panel.grid.major.y=element_blank())
+g
+ggsave(g,file="images/node.png",width=15,height=12,units="cm")
+
+p <- plot_ly(ggdata, x = ~date, y = ~reorder(version_ext,calculated_ver),
+             color=~factor(major),colors=brewer.pal(9, "Paired"),
+             type = 'scatter',mode = 'markers',
+             text = ~paste('(Date,Version)'))%>%
+  layout(xaxis = list(title="Date of the release"), yaxis = list(title="Version"))
+
+p
+
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                       by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
+
+kable(temp[order(-major)])
+
+g<-ggplot(temp,aes(major,since_previous,fill=factor(major)))+
+  geom_bar(stat="identity")+coord_flip()+
+  theme_bw()+labs(x="Major release",y="",
+                  fill="Major release",title="Days since first release of previous major")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggsave(g,file="images/node_since.png",width=15,height=12,units="cm")
 
 #### plotting ####
 

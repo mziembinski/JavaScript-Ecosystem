@@ -2,6 +2,10 @@
 
 > as for 05.05.2017
 
+> still work in progress
+
+> main todos at the end
+
 ## Introduction
 
 The influential post [How it feels to learn JavaScript in 2016](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f "How it feels to learn JavaScript in 2016
@@ -122,6 +126,8 @@ Last 10 releases:
 
 ![Node since previous release](images/node_since.png)
 
+[Interactive version](plotly_charts/node_releases.html)
+
 ## Appendix
 
 ### Something about JS
@@ -153,7 +159,8 @@ I won't go into details of the details of a software release life cycle, as they
 
 ### To Do
 
+* interactive version of charts (plot.ly at the begining, d3 eventually)
+* github pages webpage to present data
 * why release dates are different in graphql database and tags web?
 > diff between releases and tags. React data suggest that tag dates are better (see react ver. 0.10-0.12). 
 * download other libriaries
-* github pages webpage to present data
