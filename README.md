@@ -65,6 +65,33 @@ Some frameworks use only numeric versioning, while other use also extended tags 
 
 Some data was downloaded using [GitHub GraphQL api](https://developer.github.com/v4/), some using webscrapping techniques. For more details see R codes.
 
+### Node
+
+Nodejs with its [node repo](https://github.com/nodejs/node/) is using number versioning, however they are releasing so often that in description you have details about each release. Maybe in the future I will extend the analysis with those details.
+
+Last 10 releases:
+
+|owner  |name |date       |version |version_ext |
+|:------|:----|:----------|:-------|:-----------|
+|nodejs |node |2017-06-06 |v6.11.0 |6.11.0      |
+|nodejs |node |2017-05-30 |v8.0.0  |8.0.0       |
+|nodejs |node |2017-05-03 |v7.10.0 |7.10.0      |
+|nodejs |node |2017-05-02 |v6.10.3 |6.10.3      |
+|nodejs |node |2017-05-02 |v4.8.3  |4.8.3       |
+|nodejs |node |2017-04-11 |v7.9.0  |7.9.0       |
+|nodejs |node |2017-04-04 |v4.8.2  |4.8.2       |
+|nodejs |node |2017-04-04 |v6.10.2 |6.10.2      |
+|nodejs |node |2017-03-29 |v7.8.0  |7.8.0       |
+|nodejs |node |2017-03-21 |v7.7.4  |7.7.4       |
+
+
+<div>
+    <a href="https://plot.ly/~m.ziembinski/1/?share_key=BeYDrjyJ48pqdFRPOOJwlP" target="_blank" title="nodejs_releases" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/1.png?share_key=BeYDrjyJ48pqdFRPOOJwlP" alt="nodejs_releases" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="m.ziembinski:1" sharekey-plotly="BeYDrjyJ48pqdFRPOOJwlP" src="https://plot.ly/embed.js" async></script>
+</div>
+
+![Node since previous release](images/node_since.png)
+
 ### React
 Facebook with its [react repo](https://github.com/facebook/react) is using mainly number versioning.  After version v0.14.8 facebook change the versioning and started with the version v15.0.0. See tables below:
 
@@ -103,30 +130,6 @@ Major versions:
 
 ![React since previous release](images/react_since.png)
 
-### Node
-
-Nodejs with its [node repo](https://github.com/nodejs/node/) is using number versioning, however they are releasing so often that in description you have details about each release. Maybe in the future I will extend the analysis with those details.
-
-Last 10 releases:
-
-|owner  |name |date       |version |version_ext |
-|:------|:----|:----------|:-------|:-----------|
-|nodejs |node |2017-06-06 |v6.11.0 |6.11.0      |
-|nodejs |node |2017-05-30 |v8.0.0  |8.0.0       |
-|nodejs |node |2017-05-03 |v7.10.0 |7.10.0      |
-|nodejs |node |2017-05-02 |v6.10.3 |6.10.3      |
-|nodejs |node |2017-05-02 |v4.8.3  |4.8.3       |
-|nodejs |node |2017-04-11 |v7.9.0  |7.9.0       |
-|nodejs |node |2017-04-04 |v4.8.2  |4.8.2       |
-|nodejs |node |2017-04-04 |v6.10.2 |6.10.2      |
-|nodejs |node |2017-03-29 |v7.8.0  |7.8.0       |
-|nodejs |node |2017-03-21 |v7.7.4  |7.7.4       |
-
-![Node versioning](images/node.png)
-
-![Node since previous release](images/node_since.png)
-
-[Interactive version](https://plot.ly/~m.ziembinski/1/)
 
 ## Appendix
 
