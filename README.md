@@ -126,7 +126,7 @@ Last 10 releases:
 
 ![Node since previous release](images/node_since.png)
 
-[Interactive version](plotly_charts/node_releases.html)
+[Interactive version](https://plot.ly/~m.ziembinski/1/)
 
 ## Appendix
 
