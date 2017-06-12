@@ -1,6 +1,6 @@
 # JS ecosystem
 
-> as for 05.05.2017
+> as for 05.06.2017
 
 > still work in progress
 
@@ -90,7 +90,12 @@ Last 10 releases:
 
 [Interactive chart](https://plot.ly/~m.ziembinski/1/)
 
-![Node since previous release](images/node_since.png)
+<div>
+    <a href="https://plot.ly/~m.ziembinski/3/?share_key=NdcRn3bJqX3rP1q5Cqi6vo" target="_blank" title="nodejs_since" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/3.png?share_key=NdcRn3bJqX3rP1q5Cqi6vo" alt="nodejs_since" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+</div>
+
+[Interactive chart](https://plot.ly/~m.ziembinski/3/)
+
 
 ### React
 Facebook with its [react repo](https://github.com/facebook/react) is using mainly number versioning.  After version v0.14.8 facebook change the versioning and started with the version v15.0.0. See tables below:
@@ -126,10 +131,107 @@ Major versions:
 |facebook |react |     4|  3|2013-07-17 |2013-12-18 |2013-05-29 |154 days      |49 days        |
 |facebook |react |     3|  2|2013-05-29 |2013-06-20 |NA         |22 days       |NA             |
 
-![React versioning](images/react2.png)
+<div>
+    <a href="https://plot.ly/~m.ziembinski/5/?share_key=FdzxOvNVE0chJmE5LnRCrl" target="_blank" title="react_releases" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/5.png?share_key=FdzxOvNVE0chJmE5LnRCrl" alt="react_releases" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+</div>
 
-![React since previous release](images/react_since.png)
+[Interactive chart](https://plot.ly/~m.ziembinski/5/)
 
+<div>
+    <a href="https://plot.ly/~m.ziembinski/7/?share_key=5qKxdZdm86cIvgrnryTace" target="_blank" title="react_since" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/7.png?share_key=5qKxdZdm86cIvgrnryTace" alt="react_since" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+</div>
+
+[Interactive chart](https://plot.ly/~m.ziembinski/7/)
+
+
+### Angular
+
+Last 10 releases:
+
+|owner   |name    |date       |version      |version_ext |
+|:-------|:-------|:----------|:------------|:-----------|
+|angular |angular |2017-06-01 |4.2.0-rc.2   |4.2.0       |
+|angular |angular |2017-05-26 |4.2.0-rc.1   |4.2.0       |
+|angular |angular |2017-05-19 |4.2.0-rc.0   |4.2.0       |
+|angular |angular |2017-05-17 |4.1.3        |4.1.3       |
+|angular |angular |2017-05-10 |4.2.0-beta.1 |4.2.0       |
+|angular |angular |2017-05-10 |4.1.2        |4.1.2       |
+|angular |angular |2017-05-04 |4.2.0-beta.0 |4.2.0       |
+|angular |angular |2017-05-04 |4.1.1        |4.1.1       |
+|angular |angular |2017-04-26 |4.1.0        |4.1.0       |
+|angular |angular |2017-04-21 |4.1.0-rc.0   |4.1.0       |
+
+Major versions:
+
+|owner   |name    | major|   N|date_first |date_last  |previous   |since_release |since_previous |
+|:-------|:-------|-----:|---:|:----------|:----------|:----------|:-------------|:--------------|
+|angular |angular |     4|  30|2016-12-14 |2017-06-01 |2015-03-14 |169 days      |641 days       |
+|angular |angular |     2| 113|2015-03-14 |2017-03-17 |NA         |734 days      |NA             |
+
+[Interactive chart](https://plot.ly/~m.ziembinski/9/)
+
+
+### Redux
+
+Last 10 releases:
+
+|owner   |name  |date       |version |version_ext |
+|:-------|:-----|:----------|:-------|:-----------|
+|reactjs |redux |2016-09-04 |v3.6.0  |3.6.0       |
+|reactjs |redux |2016-04-24 |v3.5.2  |3.5.2       |
+|reactjs |redux |2016-04-20 |v3.5.0  |3.5.0       |
+|reactjs |redux |2016-04-20 |v3.5.1  |3.5.1       |
+|reactjs |redux |2016-04-08 |v3.4.0  |3.4.0       |
+|reactjs |redux |2016-02-06 |v3.3.1  |3.3.1       |
+|reactjs |redux |2016-02-05 |v3.3.0  |3.3.0       |
+|reactjs |redux |2016-02-02 |v3.2.1  |3.2.1       |
+|reactjs |redux |2016-02-01 |v3.2.0  |3.2.0       |
+|reactjs |redux |2016-01-31 |v3.1.6  |3.1.6       |
+
+Major versions:
+
+|owner   |name  | major|  N|date_first |date_last  |previous   |since_release |since_previous |
+|:-------|:-----|-----:|--:|:----------|:----------|:----------|:-------------|:--------------|
+|reactjs |redux |     3| 24|2015-09-12 |2016-09-04 |2015-09-01 |358 days      |11 days        |
+|reactjs |redux |     2|  1|2015-09-01 |2015-09-01 |2015-06-30 |0 days        |63 days        |
+|reactjs |redux |     1|  4|2015-06-30 |2015-08-15 |2015-06-02 |46 days       |28 days        |
+|reactjs |redux |     0| 20|2015-06-02 |2015-06-19 |NA         |17 days       |NA             |
+
+<div>
+    <a href="https://plot.ly/~m.ziembinski/11/?share_key=AYm3iHj4wL2Rhs3zdM1Xim" target="_blank" title="redux_releases" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/11.png?share_key=AYm3iHj4wL2Rhs3zdM1Xim" alt="redux_releases" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+</div>
+
+[Interactive chart](https://plot.ly/~m.ziembinski/11/)
+
+<div>
+    <a href="https://plot.ly/~m.ziembinski/13/?share_key=l2jPV4Nh1kcH1nRxkcWvKo" target="_blank" title="redux_since" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/13.png?share_key=l2jPV4Nh1kcH1nRxkcWvKo" alt="redux_since" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+</div>
+
+[Interactive chart](https://plot.ly/~m.ziembinski/13/)
+
+### Framework
+
+Last 10 releases:
+
+Major versions:
+
+
+[Interactive chart](https://plot.ly/~m.ziembinski/5/)
+
+
+[Interactive chart](https://plot.ly/~m.ziembinski/7/)
+
+### Framework
+
+Last 10 releases:
+
+Major versions:
+
+
+[Interactive chart](https://plot.ly/~m.ziembinski/5/)
+
+
+[Interactive chart](https://plot.ly/~m.ziembinski/7/)
 
 ## Appendix
 
@@ -162,8 +264,10 @@ I won't go into details of the details of a software release life cycle, as they
 
 ### To Do
 
-* interactive version of charts (plot.ly at the begining, d3 eventually)
+* analysis of alpha, beta and rc releases
+* summary of all frameworks releases
 * github pages webpage to present data
 * why release dates are different in graphql database and tags web?
 > diff between releases and tags. React data suggest that tag dates are better (see react ver. 0.10-0.12). 
 * download other libriaries
+* changing charts to d3 to consider

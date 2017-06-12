@@ -179,8 +179,8 @@ final[name=="react"]
 kable(final[name=="react"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
 
 ggdata<-final[name=="react"]
-ggdata[V1=="15",major:="15"]
-ggdata[V1!="15",major:=V2]
+ggdata[V1>="15",major:=V1]
+ggdata[V1<"15",major:=V2]
 ggdata[,major:=as.numeric(major)]
 
 g<-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=factor(major)))+
@@ -190,21 +190,32 @@ g<-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=factor(major
 
 ggsave(g,file="images/react2.png",width=15,height=12,units="cm")
 
-temp<-ggdata[major!=0][,.(.N,date_first=min(date),date_last=max(date)),
-             by=.(owner,name,major)]
-temp[,previous:=shift(date_first,1,type="lead")]
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'scatter',mode = 'markers',
+           text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
+
+api_create(p, filename = "react_releases")
+
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                            by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
 temp[,since_release:=date_last-date_first]
 temp[,since_previous:=date_first-previous]
 
-kable(temp)
+kable(temp[order(-major)])
 
-g<-ggplot(temp,aes(major,since_previous,fill=factor(major)))+
-  geom_bar(stat="identity")+coord_flip()+
-  theme_bw()+labs(x="Major release",y="",
-                  fill="Major release",title="Days since first release of previous major")+
-  theme(plot.title = element_text(hjust = 0.5))
-
-ggsave(g,file="images/react_since.png",width=15,height=12,units="cm")
+p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
+           color=~factor(major),colors=brewer.pal(9, "Paired"),
+           type = 'bar',orientation="h",
+           text = ~paste('Days since the last release: ',since_previous))%>%
+  layout(xaxis = list(title="Days since the last release"),
+         yaxis = list(title="Version"))
+api_create(p, filename = "react_since")
 
 #### nodejs ####
 final[name=="node"]
@@ -214,25 +225,15 @@ kable(final[name=="node"][,.(owner,name,date,version,version_ext)][order(-date)]
 ggdata<-final[name=="node"][!is.na(V1)]
 ggdata[,major:=as.numeric(V1)]
 
-ggdata$version_ext
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+        color=~factor(major),colors=brewer.pal(9, "Paired"),
+        type = 'scatter',mode = 'markers',
+        text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
 
-g<-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=factor(major)))+
-  geom_point(size=2)+
-  theme_bw()+labs(y="versions",color="Major release",title="Releases dates")+
-  theme(plot.title = element_text(hjust = 0.5),
-        axis.ticks.y=element_blank(),
-        axis.text.y = element_blank(),
-        panel.grid.major.y=element_blank())
-g
-ggsave(g,file="images/node.png",width=15,height=12,units="cm")
-
-p <- plot_ly(ggdata, x = ~date, y = ~reorder(version_ext,calculated_ver),
-             color=~factor(major),colors=brewer.pal(9, "Paired"),
-             type = 'scatter',mode = 'markers',
-             text = ~paste('(Date,Version)'))%>%
-  layout(xaxis = list(title="Date of the release"), yaxis = list(title="Version"))
-
-p
+api_create(p, filename = "nodejs_releases")
 
 temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
                        by=.(owner,name,major)]
@@ -243,56 +244,161 @@ temp[,since_previous:=date_first-previous]
 
 kable(temp[order(-major)])
 
-g<-ggplot(temp,aes(major,since_previous,fill=factor(major)))+
-  geom_bar(stat="identity")+coord_flip()+
-  theme_bw()+labs(x="Major release",y="",
-                  fill="Major release",title="Days since first release of previous major")+
+p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
+           color=~factor(major),colors=brewer.pal(9, "Paired"),
+           type = 'bar',orientation="h",
+           text = ~paste('Days since the last release: ',since_previous))%>%
+  layout(xaxis = list(title="Days since the last release"),
+         yaxis = list(title="Version"))
+api_create(p, filename = "nodejs_since")
+
+
+#### react ####
+
+final[name=="react"]
+
+kable(final[name=="react"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
+
+ggdata<-final[name=="react"]
+ggdata[V1>="15",major:=V1]
+ggdata[V1<"15",major:=V2]
+ggdata[,major:=as.numeric(major)]
+
+g<-ggplot(ggdata,aes(date,reorder(version_ext,calculated_ver),color=factor(major)))+
+  geom_point(size=2)+
+  theme_bw()+labs(y="versions",color="Major release",title="Releases dates")+
   theme(plot.title = element_text(hjust = 0.5))
 
-ggsave(g,file="images/node_since.png",width=15,height=12,units="cm")
+ggsave(g,file="images/react2.png",width=15,height=12,units="cm")
 
-#### plotting ####
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'scatter',mode = 'markers',
+           text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
+
+api_create(p, filename = "react_releases")
+
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                            by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
+
+kable(temp[order(-major)])
+
+p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
+           color=~factor(major),colors=brewer.pal(9, "Paired"),
+           type = 'bar',orientation="h",
+           text = ~paste('Days since the last release: ',since_previous))%>%
+  layout(xaxis = list(title="Days since the last release"),
+         yaxis = list(title="Version"))
+api_create(p, filename = "react_since")
+
+#### angular ####
+final[,.N,by=.(owner,name)]
+final[name=="angular"]
+
+kable(final[name=="angular"][!grepl("archive",version)][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
+
+ggdata<-final[name=="angular"][!is.na(V1)]
+ggdata[,major:=as.numeric(V1)]
+ggdata<-ggdata[major!=0]
+  
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+           color=~factor(major),colors=brewer.pal(9, "Paired"),
+           type = 'scatter',mode = 'markers',
+           text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
+
+api_create(p, filename = "angular_releases")
+
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                            by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
+
+kable(temp[order(-major)])
 
 
 
-## first
-final_scp[,c("V1","V2","V3"):=tstrsplit(version,"\\.")]
+#### redux ####
+final[,.N,by=.(owner,name)]
+final[name=="redux"]
 
-final_scp[,calculated_ver:=as.numeric(V1)*1e6+as.numeric(V2)*1e3+as.numeric(V3)]
+kable(final[name=="redux"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
 
-## only first
-setkey(final_scp,owner,name,calculated_ver)
-final_scp[!is.na(version),first:=1]
-final_scp[calculated_ver==shift(calculated_ver,1),first:=0]
+ggdata<-final[name=="redux"][!is.na(V1)]
+ggdata[,major:=as.numeric(V1)]
 
-ggplot(final_scp[first==1],aes(date,calculated_ver))+geom_line()+theme_bw()+
-  scale_y_continuous(label=comma,breaks=seq(0,16e6,1e6))
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'scatter',mode = 'markers',
+           text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
 
-ggplot(final_scp[first==1],aes(date,calculated_ver))+geom_line()+geom_point()+
-  theme_bw()+
-  scale_y_continuous(label=comma,breaks=seq(0,16e6,1e6))
+api_create(p, filename = "redux_releases")
 
-g<-ggplot(final_scp[first==1],aes(date,calculated_ver))+geom_line()+geom_point()+
-  facet_grid(V1~.,scale="free")+
-  theme_bw()+
-  scale_y_continuous(label=comma,breaks=seq(0,16e6,1e6))
-g
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                            by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
 
-ggplotly(g)
+kable(temp[order(-major)])
 
-#### extract date and version ####
+p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'bar',orientation="h",
+           text = ~paste('Days since the last release: ',since_previous))%>%
+  layout(xaxis = list(title="Days since the last release"),
+         yaxis = list(title="Version",
+                      type='category'))
+api_create(p, filename = "redux_since")
 
+#### redux ####
+final[,.N,by=.(owner,name)]
+final[name=="webpack"]
 
-final[,c("V1","V2","V3"):=tstrsplit(from_url,"\\.")]
+kable(final[name=="webpack"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
 
-final[name=="react"&V1==0,calculated_ver:=as.numeric(V2)*1e6+as.numeric(V3)*1e3]
+ggdata<-final[name=="webpack"][!is.na(V1)]
+ggdata[,major:=as.numeric(V1)]
 
-final[name=="react"&V1!=0,calculated_ver:=as.numeric(V1)*1e6+as.numeric(V2)*1e3+as.numeric(V3)]
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'scatter',mode = 'markers',
+           text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
 
-## only first
-setkey(final,owner,name,calculated_ver)
-final[,first:=1]
-final[calculated_ver==shift(calculated_ver,1),first:=0]
+api_create(p, filename = "webpack_releases")
 
-ggplot(final[first==1],aes(date,calculated_ver))+geom_line()+theme_bw()+
-  scale_y_continuous(label=comma,breaks=seq(0,16e6,1e6))
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                            by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
+
+kable(temp[order(-major)])
+
+p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'bar',orientation="h",
+           text = ~paste('Days since the last release: ',since_previous))%>%
+  layout(xaxis = list(title="Days since the last release"),
+         yaxis = list(title="Version",
+                      type='category'))
+api_create(p, filename = "webpack_since")
