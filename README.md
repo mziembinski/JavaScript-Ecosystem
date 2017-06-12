@@ -87,6 +87,7 @@ Last 10 releases:
 
 <div>
     <a href="https://plot.ly/~m.ziembinski/1/?share_key=BeYDrjyJ48pqdFRPOOJwlP" target="_blank" title="nodejs_releases" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/1.png?share_key=BeYDrjyJ48pqdFRPOOJwlP" alt="nodejs_releases" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+
     <script data-plotly="m.ziembinski:1" sharekey-plotly="BeYDrjyJ48pqdFRPOOJwlP" src="https://plot.ly/embed.js" async></script>
 </div>
 
@@ -94,6 +95,8 @@ Last 10 releases:
 
 <div>
     <a href="https://plot.ly/~m.ziembinski/3/?share_key=NdcRn3bJqX3rP1q5Cqi6vo" target="_blank" title="nodejs_since" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/3.png?share_key=NdcRn3bJqX3rP1q5Cqi6vo" alt="nodejs_since" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+
+    <script data-plotly="m.ziembinski:3" sharekey-plotly="NdcRn3bJqX3rP1q5Cqi6vo" src="https://plot.ly/embed.js" async></script>
 </div>
 
 [Interactive chart](https://plot.ly/~m.ziembinski/3/)
