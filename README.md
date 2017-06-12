@@ -209,17 +209,42 @@ Major versions:
 
 [Interactive chart](https://plot.ly/~m.ziembinski/13/)
 
-### Framework
+### WebPack
 
 Last 10 releases:
 
+|owner   |name    |date       |version     |version_ext |
+|:-------|:-------|:----------|:-----------|:-----------|
+|webpack |webpack |2017-06-07 |v3.0.0-rc.1 |3.0.0       |
+|webpack |webpack |2017-06-05 |v3.0.0-rc.0 |3.0.0       |
+|webpack |webpack |2017-05-25 |v2.6.1      |2.6.1       |
+|webpack |webpack |2017-05-22 |v2.6.0      |2.6.0       |
+|webpack |webpack |2017-05-06 |v2.5.1      |2.5.1       |
+|webpack |webpack |2017-05-04 |v2.5.0      |2.5.0       |
+|webpack |webpack |2017-04-14 |v2.4.1      |2.4.1       |
+|webpack |webpack |2017-04-14 |v2.4.0      |2.4.0       |
+|webpack |webpack |2017-04-13 |v1.15.0     |1.15.0      |
+|webpack |webpack |2017-04-03 |v2.3.3      |2.3.3       |
+
 Major versions:
 
+|owner   |name    | major|   N|date_first |date_last  |previous   |since_release |since_previous |
+|:-------|:-------|-----:|---:|:----------|:----------|:----------|:-------------|:--------------|
+|webpack |webpack |     3|   2|2017-06-05 |2017-06-07 |2015-11-01 |2 days        |582 days       |
+|webpack |webpack |     2|  58|2015-11-01 |2017-05-25 |2013-12-19 |571 days      |682 days       |
+|webpack |webpack |     1| 178|2013-12-19 |2017-04-13 |NA         |1211 days     |NA             |
 
-[Interactive chart](https://plot.ly/~m.ziembinski/5/)
+<div>
+    <a href="https://plot.ly/~m.ziembinski/15/?share_key=P6uelKPwQzB6KRXT71GMae" target="_blank" title="webpack_releases" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/15.png?share_key=P6uelKPwQzB6KRXT71GMae" alt="webpack_releases" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+</div>
 
+[Interactive chart](https://plot.ly/~m.ziembinski/15/)
 
-[Interactive chart](https://plot.ly/~m.ziembinski/7/)
+<div>
+    <a href="https://plot.ly/~m.ziembinski/17/?share_key=FeL9fpeCEZIjw660kA6NOX" target="_blank" title="webpack_since" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/17.png?share_key=FeL9fpeCEZIjw660kA6NOX" alt="webpack_since" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+</div>
+
+[Interactive chart](https://plot.ly/~m.ziembinski/17/)
 
 ### Framework
 
