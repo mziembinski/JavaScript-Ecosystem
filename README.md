@@ -150,7 +150,7 @@ Major versions:
 
 NPM stats.
 
-![React npm stats](..master/images/react_npm.png "React npm stats")
+![React npm stats](../master/images/react_npm.png "React npm stats")
 
 
 ### Angular
