@@ -15,7 +15,7 @@ For those who are starting with web-development I would recommend to read [A Stu
 
 My personal goal here is to analyse the most popular frameworks to highlight another troublesome feature of JavaScript. There is not only vast amount of the frameworks, but also the vast amount of versions of each framework. It is hard for the beginner to study particular framework based on the materials and courses avaiable online,
 <!--add some link-->
-bacause there are becoming outdated very quickly. Even though that for most of them principles are not changing some features are appearing/disappearing often. But not only frameworks are changing. All existing JavaScript labels can give you a headache. The first encouter of ES5, ES6 and ES2016 can be frightening, and the advice that you can learn babel to resolve the problem is not helping. For those who are not familiar with them - here you have nice blog post about [JavaScript versioning](https://benmccormick.org/2015/09/14/es5-es6-es2016-es-next-whats-going-on-with-javascript-versioning/).
+because there are becoming outdated very quickly. Even though that for most of them principles are not changing some features are appearing/disappearing often. But not only frameworks are changing. All existing JavaScript labels can give you a headache. The first encouter of ES5, ES6 and ES2016 can be frightening, and the advice that you can learn babel to resolve the problem is not helping. For those who are not familiar with them - here you have nice blog post about [JavaScript versioning](https://benmccormick.org/2015/09/14/es5-es6-es2016-es-next-whats-going-on-with-javascript-versioning/).
 
 Based on github repos and npm stats I will check how often new version of each framework is released with emphasis on the major releases. Based on the [the State of JavaScript Survey](http://stateofjs.com/ "The State of Javascript") I will focus on the following frameworks:
 
@@ -148,6 +148,10 @@ Major versions:
 
 [Interactive chart](https://plot.ly/~m.ziembinski/7/)
 
+NPM stats.
+
+![React npm stats](images/react_npm.png "React npm stats")
+
 
 ### Angular
 
@@ -268,6 +272,9 @@ Major versions:
 ### Something about JS
 
 * [Overview of the JavaScript ecosystem](https://medium.com/@bojzi/overview-of-the-javascript-ecosystem-8ec4a0b7a7be)
+* [A JAVASCRIPT ECOSYSTEM OVERVIEW](https://www.imaginarycloud.com/blog/a-javascript-ecosystem-overview/)
+* [JavaScript Fatigue](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4)
+* [The current JavaScript churn, and its long-term effect on your business](http://www.confluentforms.com/2016/01/javascript-churn-technology-investment-effect.html)
 
 ### Other useful links if you want to know how Internet is working
 
