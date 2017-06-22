@@ -38,7 +38,7 @@ Based on github repos and npm stats I will check how often new version of each f
     * Grunt
     * Gulp
     * Browserify
-* Node.js :white_check_mark:
+* [Node.js :white_check_mark:](#NodeJS)
 
 
 The analysis is done with [R](https://www.r-project.org/) and presented using [GitHub Pages](https://pages.github.com/). All codes are available on GitHub
@@ -108,6 +108,8 @@ Last 10 releases:
 
 [Interactive chart](https://plot.ly/~m.ziembinski/3/)
 
+Other links:
+* [Node by numbers](https://nodesource.com/node-by-numbers)
 
 ### React
 <img src="https://facebook.github.io/react/img/logo.svg" alt="NodeJS logo" style="width: 100px;"/>
