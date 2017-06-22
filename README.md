@@ -20,7 +20,7 @@ because there are becoming outdated very quickly. Even though that for most of t
 Based on github repos and npm stats I will check how often new version of each framework is released with emphasis on the major releases. Based on the [the State of JavaScript Survey](http://stateofjs.com/ "The State of Javascript") I will focus on the following frameworks:
 
 * Front-End [survey](http://stateofjs.com/2016/frontend/ "Survey Results")
-    * React :white_check_mark:
+    * [React](#react) :white_check_mark:
     * Angular :white_check_mark:
     * Ember :white_check_mark:
     * Vue :white_check_mark:
