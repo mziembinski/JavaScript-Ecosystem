@@ -1,22 +1,31 @@
+npm_stats<-function(name,range1='2015-01-01',range2='2017-06-03',type="month"){
 
-doc<-jsonlite::fromJSON("https://registry.npmjs.org/react")
-str(doc,1)
+  url<-paste0('https://api.npmjs.org/downloads/range/',range1,':',range2,'/',name) 
+  
+  temp<-fromJSON(url)
 
-str(doc$versions,1)
-str(doc$`dist-tags`,1)
+  temp<-data.table(temp$downloads)
+  temp[,week:=paste0(year(day),"-W",sprintf('%02d',week(day)))]
+  temp[,month:=paste0(year(day),"-M",sprintf('%02d',month(day)))]
+  
+  if(type=="week"){
+    temp<-temp[,.(downloads=sum(downloads)),by=.(week)]
+    
+    temp[shift(substr(week,7,9),1,type="lead")=="53",downloads:=downloads+shift(downloads,1,type="lead")]
+    temp<-temp[substr(week,7,9)!="53"]
+  }
+  
+  if(type=="month"){
+    temp<-temp[,.(downloads=sum(downloads)),by=.(month)]
+    }
 
-str(doc$versions$`15.5.0`,1)
+  if(!(type %in% c("week","month"))){
+    print("Error - the type not recognized")
+    return()
+  }
+  
+  return(temp)
+}
 
-str(doc$versions$`15.5.0`)
 
-url<-paste0('https://api.npmjs.org/downloads/range/','2016-01-01',':','2017-06-03','/',"react") 
 
-temp<-fromJSON(url)
-str(temp)
-
-temp<-data.table(temp$downloads)
-temp[,week:=paste0(year(day),"-W",sprintf('%02d',week(day)))]
-
-ggplot(temp[,.(downloads=sum(downloads)),by=.(week)],aes(week,downloads,group=1))+geom_line()+theme_bw()+theme(axis.text.x = element_text(angle=90))
-
-ggsave(file="images/react_npm.png",width=15,height=12,units="cm")

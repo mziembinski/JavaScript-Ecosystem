@@ -3,14 +3,13 @@ packages<-c("data.table","ggplot2","jsonlite","curl","httr","stringr","scales",
 
 #lapply(packages, install.packages)
 
-lapply(c("plotly"), install.packages)
+#lapply(c("plotly"), install.packages)
 #devtools::install_github("schloerke/gqlr")
 
 devtools::install_github("ropensci/ghql")
 
-sapply(packages, require,character.only = TRUE)
+sapply(packages, library,character.only = TRUE)
 
-library(XML)
 library(plotly)
 
 #### github graphql connection ####
@@ -27,6 +26,7 @@ cli <- GraphqlClient$new(
 
 source('download_graphql.R')
 source('check_repos.R')
+source('npm_stats.R')
 
 temp<-download_graphql("facebook","react",100)
 temp$totalCount
@@ -129,7 +129,7 @@ finalql[,id:=.I]
 finalql[,version:=gsub(paste0("https://github.com/",owner,"/",name,"/releases/tag/"),"",url),by=id]
 finalql[,version_ext:=str_extract(url,"\\d*\\.\\d*\\.\\d*")]
 
-final<-rbind(final,finalql[name!="react"][,.(owner,name,date,version,version_ext)])
+final<-rbind(final,finalql[,.(owner,name,date,version,version_ext)])
 
 write.csv(final,file="data/final.csv")
 
@@ -173,7 +173,7 @@ final[,c("V1","V2","V3"):=tstrsplit(version_ext,"\\.")]
 final[,calculated_ver:=as.numeric(V1)*1e6+as.numeric(V2)*1e3+as.numeric(V3)]
 
 #### react ####
-
+final[,.N,by=.(owner,name)]
 final[name=="react"]
 
 kable(final[name=="react"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
@@ -216,6 +216,11 @@ p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
   layout(xaxis = list(title="Days since the last release"),
          yaxis = list(title="Version"))
 api_create(p, filename = "react_since")
+
+temp<-npm_stats("react")
+ggplot(temp[1:(nrow(temp)-1)],aes(month,downloads,group=1))+geom_line()+theme_bw()+theme(axis.text.x = element_text(angle=90))
+
+ggsave(file="images/react_npm.png",width=15,height=12,units="cm")
 
 #### nodejs ####
 final[name=="node"]
@@ -327,8 +332,6 @@ temp[,since_previous:=date_first-previous]
 
 kable(temp[order(-major)])
 
-
-
 #### redux ####
 final[,.N,by=.(owner,name)]
 final[name=="redux"]
@@ -366,7 +369,7 @@ p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
                       type='category'))
 api_create(p, filename = "redux_since")
 
-#### redux ####
+#### webpack ####
 final[,.N,by=.(owner,name)]
 final[name=="webpack"]
 
@@ -402,3 +405,78 @@ p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
          yaxis = list(title="Version",
                       type='category'))
 api_create(p, filename = "webpack_since")
+
+#### meteor ####
+final[,.N,by=.(owner,name)]
+final[name=="ember.js"]
+
+kable(final[name=="ember.js"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
+
+ggdata<-final[name=="ember.js"][!is.na(V1)]
+ggdata[,major:=as.numeric(V1)]
+
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'scatter',mode = 'markers',
+           text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
+
+api_create(p, filename = "ember_releases")
+
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                            by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
+
+kable(temp[order(-major)])
+
+p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'bar',orientation="h",
+           text = ~paste('Days since the last release: ',since_previous))%>%
+  layout(xaxis = list(title="Days since the last release"),
+         yaxis = list(title="Version",
+                      type='category'))
+api_create(p, filename = "ember_since")
+
+
+#### meteor ####
+final[,.N,by=.(owner,name)]
+final[name=="meteor"]
+
+kable(final[name=="meteor"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
+
+ggdata<-final[name=="meteor"][!is.na(V1)]
+ggdata[,major:=as.numeric(V1)]
+
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'scatter',mode = 'markers',
+           text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
+
+api_create(p, filename = "meteor_releases")
+
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                            by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
+
+kable(temp[order(-major)])
+
+p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
+           color=~factor(major),colors=brewer.pal(10, "Paired"),
+           type = 'bar',orientation="h",
+           text = ~paste('Days since the last release: ',since_previous))%>%
+  layout(xaxis = list(title="Days since the last release"),
+         yaxis = list(title="Version",
+                      type='category'))
+api_create(p, filename = "meteor_since")

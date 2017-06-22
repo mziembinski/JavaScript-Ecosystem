@@ -65,7 +65,14 @@ Some frameworks use only numeric versioning, while other use also extended tags 
 
 Some data was downloaded using [GitHub GraphQL api](https://developer.github.com/v4/), some using webscrapping techniques. For more details see R codes.
 
-### Node
+### NodeJS
+<img src="https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png" alt="NodeJS logo" style="width: 200px;"/>
+
+* [Ofifcial webpage](https://nodejs.org/)
+* [Wikipedia](https://en.wikipedia.org/wiki/Node.js)
+* [NodeJS releases policy](https://nodejs.org/en/about/releases/)
+
+Node.js is an open-source, cross-platform JavaScript run-time environment for executing JavaScript code **server-side**.
 
 Nodejs with its [node repo](https://github.com/nodejs/node/) is using number versioning, however they are releasing so often that in description you have details about each release. Maybe in the future I will extend the analysis with those details.
 
@@ -103,6 +110,13 @@ Last 10 releases:
 
 
 ### React
+<img src="https://facebook.github.io/react/img/logo.svg" alt="NodeJS logo" style="width: 100px;"/>
+
+* [Ofifcial webpage](https://facebook.github.io/react/)
+* [Wikipedia](https://en.wikipedia.org/wiki/React_(JavaScript_library))
+
+React is an open-source JavaScript library for **building user interfaces**.
+
 Facebook with its [react repo](https://github.com/facebook/react) is using mainly number versioning.  After version v0.14.8 facebook change the versioning and started with the version v15.0.0. See tables below:
 
 Last 10 releases:
