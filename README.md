@@ -44,10 +44,19 @@ Based on github repos and npm stats I will check how often new version of each f
 The analysis is done with [R](https://www.r-project.org/) and presented using [GitHub Pages](https://pages.github.com/). All codes are available on GitHub
 <!--add repo link -->
 
+## Motivation
 
+Some part of my motivation was described in the introduction. However it lacks data. Is it JavaScript really important? How important is it?
+
+Using [Google BigQuery httparchive datasets](https://bigquery.cloud.google.com/dataset/httparchive:runs) I check the growth rate of bytes count for HTML and JS content. Starting from 2012-01-01 till 2017-04-01 the average size of JS code for 10,000 most popular webpages grew by 200% while HTML content only by ~50%. It shows how important JS is for the web development right now. Keep in mind that those data do not show e.g. the server-side JS implementations.
+
+![JS bytes](../master/images/JSbytes.png "JS bytes")
+
+
+ 
 ## JS frameworks
 
-As for now the data about folowing frameworks was downloaded.
+As for now the data about following frameworks was downloaded.
 
 |owner     |name     |date_min   |version_first |date_max   |version_last |
 |:---------|:--------|:----------|:------------:|:----------|:-----------:|
