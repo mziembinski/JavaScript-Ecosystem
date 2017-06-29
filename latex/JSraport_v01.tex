@@ -1,0 +1,89 @@
+%\documentclass[12pt]{article}
+\documentclass[a4paper,11pt]{book}
+\usepackage{mpz_style}
+\usepackage{subfiles}
+
+\makeindex
+
+\begin{document}
+
+%\title{Doktorat}
+%\author{Michal Ziembinski} 
+%\date{2016}
+%\maketitle
+
+\frontmatter
+%%\import{./}{title.tex}
+% 
+\clearpage
+%% temporary titles
+
+\pagestyle{empty}
+\begin{center}
+\bfseries
+\nbvspace[1]
+\Huge
+{\nbtitlestretch\huge
+JavaScript Ecosystem}
+
+\nbvspace[1]
+\normalsize
+
+its state,\\
+development\\
+and others.
+
+\nbvspace[1]
+
+\small BY\\
+\Large Michal Ziembinski\\[0.5em]
+\footnotesize Other contributors: \\
+...
+
+\nbvspace[2]
+
+%\includegraphics[width=1.5in]{./graphics/pic37}
+\nbvspace[3]
+\normalsize
+
+\large
+PUBLISHED IN THE WEB
+\nbvspace[1]
+\end{center}
+
+\thispagestyle{empty}
+% 
+\tableofcontents
+% 
+\mainmatter
+
+%%React
+\chapter{Modern Web in bytes}
+\subfile{web}
+
+
+\chapter{JavaScript Ecosystem}
+\subfile{react}
+%\subfile{angular}
+%\subfile{polymer}
+%\subfile{nodejs}
+
+
+\section{Additional chapter}
+%\subfile{chapter1_1.tex}
+ 
+\section{Last chapter}
+%\subfile{section3-1.tex}
+ 
+\backmatter
+ 
+%\import{./}{bibliography.tex}
+ 
+
+
+%\foreach\x in {1,2,...,356}{%
+%    \includegraphics[scale=0.7]{../plots/plot_\x}
+%    %\input{tables/1_3_\x _table2}
+%    %\newpage
+%  }
+\end{document}
