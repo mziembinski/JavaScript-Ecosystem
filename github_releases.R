@@ -109,9 +109,14 @@ temp<-web_scrap("facebook","react",20,1)
 temp
 finalscp<-rbind(finalscp,temp)
 
+#polymer
+temp<-web_scrap("Polymer","polymer",20,1)
+temp
+finalscp<-rbind(finalscp,temp)
 
 # check
 finalscp[,.N,by=.(owner,name)]
+
 
 ## save
 save(finalql,finalscp,file="data/finals.RData")
@@ -133,6 +138,19 @@ final<-rbind(final,finalql[,.(owner,name,date,version,version_ext)])
 
 write.csv(final,file="data/final.csv")
 
+### npm stats ####
+final[,.N,by=.(owner,name)]
+
+temp<-npm_stats("react")
+
+temp<-npm_stats("angular")
+
+temp<-npm_stats("webpack")
+
+temp<-npm_stats("redux")
+
+temp<-npm_stats("polymer")
+
 # summary
 finalsm<-final[,.(date_min=min(date),date_max=max(date),
                   version_first=min(version),
@@ -150,6 +168,7 @@ finalsm[name=="ember.js",version_first:="0.9"]
 finalsm[name=="react",version_first:="0.3.0"]
 finalsm[name=="vue",version_first:="0.6.0"]
 finalsm[name=="redux",version_first:="0.2.0"]
+finalsm[name=="polymer",version_first:="0.0.20130711"]
 
 ### last
 final[final[,.(date=max(date)),by=.(owner,name)],on=.(owner,name,date)]
@@ -164,6 +183,7 @@ finalsm[name=="ember.js",version_last:="2.14.0"]
 finalsm[name=="react",version_last:="15.5.4"]
 finalsm[name=="vue",version_last:="2.3.3"]
 finalsm[name=="redux",version_last:="3.6.0"]
+finalsm[name=="polymer",version_last:="1.9.2"]
 
 finalsm[,.(owner,name,date_min,version_first,date_max,version_last)]
 
@@ -322,6 +342,45 @@ p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~v
                       categoryorder = "trace"))
 
 api_create(p, filename = "angular_releases")
+
+temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
+                            by=.(owner,name,major)]
+setkey(temp,owner,name,major)
+temp[,previous:=shift(date_first,1,type="lag")]
+temp[,since_release:=date_last-date_first]
+temp[,since_previous:=date_first-previous]
+
+kable(temp[order(-major)])
+
+
+p<-plot_ly(temp[!is.na(since_previous)], x = ~since_previous, y = ~major,
+           color=~factor(major),colors=brewer.pal(9, "Paired"),
+           type = 'bar',orientation="h",
+           text = ~paste('Days since the last release: ',since_previous))%>%
+  layout(xaxis = list(title="Days since the last release"),
+         yaxis = list(title="Version"))
+api_create(p, filename = "polymer_since")
+
+#### polymer ####
+final[,.N,by=.(owner,name)]
+final[name=="polymer"]
+
+final[name=="polymer"&V1==0&V2==0&V3>2000,calculated_ver:=as.numeric(V1)*1e6+as.numeric(V2)*1e3+as.numeric(V3)/1e7]
+
+kable(final[name=="polymer"][,.(owner,name,date,version,version_ext)][order(-date)][1:10])
+
+ggdata<-final[name=="polymer"][!is.na(V1)]
+ggdata[,major:=as.numeric(V1)]
+
+p<-plot_ly(ggdata[!is.na(version_ext)][order(calculated_ver)], x = ~date, y = ~version_ext,
+           color=~factor(major),colors=brewer.pal(9, "Paired"),
+           type = 'scatter',mode = 'markers',
+           text = ~paste('Version: ',version))%>%
+  layout(xaxis = list(title="Date of the release"),
+         yaxis = list(title="Version",
+                      categoryorder = "trace"))
+
+plotly_POST(p, filename = "polymer_releases")
 
 temp<-ggdata[!is.na(major)][,.(.N,date_first=min(date),date_last=max(date)),
                             by=.(owner,name,major)]

@@ -69,6 +69,7 @@ As for now the data about following frameworks was downloaded.
 |facebook  |react    |2013-07-02 |0.3.0         |2017-05-01 |15.5.4       |
 |vuejs     |vue      |2013-12-07 |0.6.0         |2017-05-09 |2.3.3        |
 |reactjs   |redux    |2015-06-02 |0.2.0         |2016-09-04 |3.6.0        |
+|Polymer   |polymer  |2013-07-11 |0.0.20130711  |2017-06-15 |1.9.2        |
 
 Some frameworks use only numeric versioning, while other use also extended tags (e.g. rc1, rc2, etc. - see [versioning](#Versioning)).
 
@@ -204,6 +205,37 @@ Major versions:
 
 [Interactive chart](https://plot.ly/~m.ziembinski/9/)
 
+
+### Polymer 
+
+Last 10 releases:
+
+|owner   |name    |date       |version     |version_ext |
+|:-------|:-------|:----------|:-----------|:-----------|
+|Polymer |polymer |2017-06-15 |v1.9.2      |1.9.2       |
+|Polymer |polymer |2017-06-15 |v1.9.2-dev  |1.9.2       |
+|Polymer |polymer |2017-05-25 |v2.0.1      |2.0.1       |
+|Polymer |polymer |2017-05-15 |v2.0.0      |2.0.0       |
+|Polymer |polymer |2017-05-13 |v2.0.0-rc.9 |2.0.0       |
+|Polymer |polymer |2017-05-12 |v2.0.0-rc.8 |2.0.0       |
+|Polymer |polymer |2017-04-19 |v2.0.0-rc.7 |2.0.0       |
+|Polymer |polymer |2017-04-18 |v2.0.0-rc.6 |2.0.0       |
+|Polymer |polymer |2017-04-17 |v1.9.1      |1.9.1       |
+|Polymer |polymer |2017-04-17 |v1.9.1-dev  |1.9.1       |
+
+Major versions:
+
+|owner   |name    | major|  N|date_first |date_last  |previous   |since_release |since_previous |
+|:-------|:-------|-----:|--:|:----------|:----------|:----------|:-------------|:--------------|
+|Polymer |polymer |     2| 11|2017-03-04 |2017-05-25 |2015-05-27 |82 days       |647 days       |
+|Polymer |polymer |     1| 45|2015-05-27 |2017-06-15 |2013-07-11 |750 days      |685 days       |
+|Polymer |polymer |     0| 56|2013-07-11 |2015-05-27 |NA         |685 days      |NA             |
+
+<div>
+    <a href="https://plot.ly/~m.ziembinski/18/?share_key=fiPwZzAm4yedXtB24CxcnS" target="_blank" title="polymer_releases" style="display: block; text-align: center;"><img src="https://plot.ly/~m.ziembinski/18.png?share_key=fiPwZzAm4yedXtB24CxcnS" alt="polymer_releases" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+</div>
+
+[Interactive chart](https://plot.ly/~m.ziembinski/18/)
 
 ### Redux
 
