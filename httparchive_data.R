@@ -38,6 +38,7 @@ dataBQ[,.N,by=date][order(date)]
 
 # save the downloaded data 
 save(dataBQ,file="data/dataBQ.RData")
+load(file="data/dataBQ.RData")
 
 #### plotting to check/explore data ####
 ggplot(dataBQ[order(date)],aes(date, bytesJS/bytesTotal))+geom_boxplot()
@@ -51,34 +52,44 @@ ylim1 = boxplot.stats(dataBQ$bytesJS)$stats[c(1, 5)]
 # scale y limits based on ylim1
 p + coord_cartesian(ylim = ylim1*1.05)
 
-ggplot(melt(dataBQ[,.(mean=mean(bytesJS,na.rm=T),median=median(bytesJS,na.rm=T)),by=date],id="date"),aes(date, value,group=variable,col=variable))+geom_line()+theme_bw()+
-  theme(axis.text.x = element_text(angle=90))+scale_y_continuous(labels = comma)
 
-ggplot(melt(dataBQ[,.(mean=mean(bytesJS/bytesTotal,na.rm=T),median=median(bytesJS/bytesTotal,na.rm=T)),by=date],id="date"),aes(date, value,group=variable,col=variable))+geom_line()+theme_bw()+
-  theme(axis.text.x = element_text(angle=90))
-ggplot(melt(dataBQ[,.(mean=mean(bytesCSS/bytesTotal,na.rm=T),median=median(bytesJS/bytesTotal,na.rm=T)),by=date],id="date"),aes(date, value,group=variable,col=variable))+geom_line()+theme_bw()+
-  theme(axis.text.x = element_text(angle=90))
+#### chart mean and median ####
+#html
+#dataplot<-dataBQ[date!="2017_01_01"][,.(mean=mean(bytesHtml,na.rm=T),
+                                        median=median(bytesHtml,na.rm=T)),by=date][order(date)]
+#dataplot[,mean:=(mean/dataplot[date=="2012_01_01"]$mean)-1]
+#dataplot[,median:=(median/dataplot[date=="2012_01_01"]$median)-1]
 
-ggplot(dataBQ[,.(date,bytesCSS/bytesTotal)],aes(V2, col=date))+geom_density()+theme_bw()+xlim(0,.05)
-ggplot(dataBQ[date %in% c("2012_01_01","2014_01_01","2016_01_01","2017_04_01")][,.(date,bytesCSS/bytesTotal)],aes(V2, col=date))+geom_density(size=2)+theme_bw()+xlim(0,.05)
+#dataplot[,date:=as.Date(date,"%Y_%m_%d")]
 
-ggplot(dataBQ[,.(bytesJS=mean(bytesJS,na.rm=T)),by=date][order(date)][date!="2017_01_01"],aes(date, bytesJS,group=1))+geom_line()+theme_bw()+
-  theme(axis.text.x = element_text(angle=90))
+#ggplot(melt(dataplot[,.(date,mean,median)],"date"),aes(date,value*100,col=variable,group=variable))+geom_line()+geom_point(size=2)+
+#  geom_smooth()+
+#  facet_grid(variable~.,scale='free')+
+#  theme_bw()+scale_color_manual(values=c('#253494','#0571b0'))+
+#  labs(x="",y="% growth",title="Growth of bytes count for Html content \nstarting point: 2012-01-01")
+#ggsave(file="images/htmlGrowth.png",width=15,height=12,units="cm")
 
-
-ggplot(dataBQ[,.(bytesHtml=mean(bytesHtml,na.rm=T)),by=date][order(date)][date!="2017_01_01"],aes(date, bytesHtml,group=1))+geom_line()+theme_bw()+
-  theme(axis.text.x = element_text(angle=90))
-
-
-dataplot<-dataBQ[date!="2017_01_01"][,.(bytesHtml=mean(bytesHtml,na.rm=T),bytesJS=mean(bytesJS,na.rm=T)),by=date][order(date)]
+#### chart mean ####
+dataplot<-dataBQ[date!="2017_01_01"][,.(bytesHtml=mean(bytesHtml,na.rm=T),
+                                        bytesJS=mean(bytesJS,na.rm=T),
+                                        bytesCSS=mean(bytesCSS,na.rm=T),
+                                        bytesPic=mean(bytesPic,na.rm=T)),by=date][order(date)]
 dataplot[,growthHtml:=(bytesHtml/dataplot[date=="2012_01_01"]$bytesHtml)-1]
 dataplot[,growthJS:=(bytesJS/dataplot[date=="2012_01_01"]$bytesJS)-1]
+dataplot[,growthCSS:=(bytesCSS/dataplot[date=="2012_01_01"]$bytesCSS)-1]
+dataplot[,growthPic:=(bytesPic/dataplot[date=="2012_01_01"]$bytesPic)-1]
 
 dataplot[,date:=as.Date(date,"%Y_%m_%d")]
 
-ggplot(melt(dataplot[,.(date,growthHtml,growthJS)],"date"),aes(date,value*100,col=variable,group=variable))+geom_line()+geom_point(size=2)+
-  geom_smooth()+
+ggplot(melt(dataplot[,.(date,growthHtml,growthJS,growthCSS,growthPic)],"date"),aes(date,value*100,col=variable,group=variable))+geom_line()+geom_point(size=2)+
+  geom_smooth(alpha=0.15)+
+#  facet_grid(variable~.,scale='free')+
   theme_bw()+
-  labs(x="",y="% growth",title="Growth of bytes count for Html and JS content \nstarting point: 2012-01-01")
-ggsave(file="images/JSbytes.png",width=15,height=12,units="cm")
+  labs(x="",y="% growth",title="Growth of bytes count for web content")
+ggsave(file="images/bytesGrowth.png",width=15,height=12,units="cm")
+
+#### ####
+dataBQ
+
+
 

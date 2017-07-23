@@ -48,11 +48,38 @@ The analysis is done with [R](https://www.r-project.org/) and presented using [G
 
 Some part of my motivation was described in the introduction. However it lacks data. Is it JavaScript really important? How important is it?
 
-Using [Google BigQuery httparchive datasets](https://bigquery.cloud.google.com/dataset/httparchive:runs) I check the growth rate of bytes count for HTML and JS content. Starting from 2012-01-01 till 2017-04-01 the average size of JS code for 10,000 most popular webpages grew by 200% while HTML content only by ~50%. It shows how important JS is for the web development right now. Keep in mind that those data do not show e.g. the server-side JS implementations.
+Using [Google BigQuery httparchive datasets](https://bigquery.cloud.google.com/dataset/httparchive:runs) I check the growth rate of bytes count for web content. Starting from 2012-01-01 till 2017-04-01 the average size of JS code for 10,000 most popular webpages grew by 200% while HTML content only by ~50%. More importantly since 2014 Html count stabilized while JS and CSS code still rises. 
+Data show how important JS is for the web development right now. Keep in mind that those data do not show e.g. the server-side JS implementations (or other back-end code base).
 
-![JS bytes](../master/images/JSbytes.png "JS bytes")
+![bytes growth](../master/images/bytesGrowth.png "bytes growth")
 
-
+<table border=1>
+<caption align="bottom"> Bytes and Growth rates - web content </caption>
+<tr> <th> date </th> <th> bytesHtml </th> <th> bytesJS </th> <th> bytesCSS </th> <th> bytesPic </th> <th> growthHtml </th> <th> growthJS </th> <th> growthCSS </th> <th> growthPic </th>  </tr>
+  <tr> <td> 2012-01-01 </td> <td align="right"> 41963 </td> <td align="right"> 179479 </td> <td align="right"> 34961 </td> <td align="right"> 1256949 </td> <td align="right"> 0.00 </td> <td align="right"> 0.00 </td> <td align="right"> 0.00 </td> <td align="right"> 0.00 </td> </tr>
+  <tr> <td> 2012-04-01 </td> <td align="right"> 42590 </td> <td align="right"> 197774 </td> <td align="right"> 37387 </td> <td align="right"> 1302799 </td> <td align="right"> 1.49 </td> <td align="right"> 10.19 </td> <td align="right"> 6.94 </td> <td align="right"> 3.65 </td> </tr>
+  <tr> <td> 2012-07-01 </td> <td align="right"> 43018 </td> <td align="right"> 202495 </td> <td align="right"> 36761 </td> <td align="right"> 1240668 </td> <td align="right"> 2.51 </td> <td align="right"> 12.82 </td> <td align="right"> 5.15 </td> <td align="right"> -1.30 </td> </tr>
+  <tr> <td> 2012-10-01 </td> <td align="right"> 48171 </td> <td align="right"> 205792 </td> <td align="right"> 38407 </td> <td align="right"> 1355806 </td> <td align="right"> 14.79 </td> <td align="right"> 14.66 </td> <td align="right"> 9.86 </td> <td align="right"> 7.86 </td> </tr>
+  <tr> <td> 2013-01-01 </td> <td align="right"> 48673 </td> <td align="right"> 207754 </td> <td align="right"> 35775 </td> <td align="right"> 1433817 </td> <td align="right"> 15.99 </td> <td align="right"> 15.75 </td> <td align="right"> 2.33 </td> <td align="right"> 14.07 </td> </tr>
+  <tr> <td> 2013-04-01 </td> <td align="right"> 52531 </td> <td align="right"> 233017 </td> <td align="right"> 39406 </td> <td align="right"> 1658013 </td> <td align="right"> 25.18 </td> <td align="right"> 29.83 </td> <td align="right"> 12.71 </td> <td align="right"> 31.91 </td> </tr>
+  <tr> <td> 2013-07-01 </td> <td align="right"> 55262 </td> <td align="right"> 238135 </td> <td align="right"> 39385 </td> <td align="right"> 1785808 </td> <td align="right"> 31.69 </td> <td align="right"> 32.68 </td> <td align="right"> 12.65 </td> <td align="right"> 42.07 </td> </tr>
+  <tr> <td> 2013-10-01 </td> <td align="right"> 57919 </td> <td align="right"> 278787 </td> <td align="right"> 46698 </td> <td align="right"> 1873393 </td> <td align="right"> 38.02 </td> <td align="right"> 55.33 </td> <td align="right"> 33.57 </td> <td align="right"> 49.04 </td> </tr>
+  <tr> <td> 2014-01-01 </td> <td align="right"> 57057 </td> <td align="right"> 296016 </td> <td align="right"> 50125 </td> <td align="right"> 1990561 </td> <td align="right"> 35.97 </td> <td align="right"> 64.93 </td> <td align="right"> 43.37 </td> <td align="right"> 58.36 </td> </tr>
+  <tr> <td> 2014-04-01 </td> <td align="right"> 56389 </td> <td align="right"> 303144 </td> <td align="right"> 51734 </td> <td align="right"> 2027095 </td> <td align="right"> 34.38 </td> <td align="right"> 68.90 </td> <td align="right"> 47.98 </td> <td align="right"> 61.27 </td> </tr>
+  <tr> <td> 2014-07-01 </td> <td align="right"> 58914 </td> <td align="right"> 321480 </td> <td align="right"> 55876 </td> <td align="right"> 2247900 </td> <td align="right"> 40.39 </td> <td align="right"> 79.12 </td> <td align="right"> 59.82 </td> <td align="right"> 78.84 </td> </tr>
+  <tr> <td> 2014-10-01 </td> <td align="right"> 59408 </td> <td align="right"> 330501 </td> <td align="right"> 58642 </td> <td align="right"> 2276486 </td> <td align="right"> 41.57 </td> <td align="right"> 84.14 </td> <td align="right"> 67.73 </td> <td align="right"> 81.11 </td> </tr>
+  <tr> <td> 2015-01-01 </td> <td align="right"> 60720 </td> <td align="right"> 340748 </td> <td align="right"> 61452 </td> <td align="right"> 2420417 </td> <td align="right"> 44.70 </td> <td align="right"> 89.85 </td> <td align="right"> 75.77 </td> <td align="right"> 92.56 </td> </tr>
+  <tr> <td> 2015-04-01 </td> <td align="right"> 61672 </td> <td align="right"> 364864 </td> <td align="right"> 66954 </td> <td align="right"> 2396793 </td> <td align="right"> 46.96 </td> <td align="right"> 103.29 </td> <td align="right"> 91.51 </td> <td align="right"> 90.68 </td> </tr>
+  <tr> <td> 2015-07-01 </td> <td align="right"> 56653 </td> <td align="right"> 413541 </td> <td align="right"> 70301 </td> <td align="right"> 2648086 </td> <td align="right"> 35.01 </td> <td align="right"> 130.41 </td> <td align="right"> 101.08 </td> <td align="right"> 110.68 </td> </tr>
+  <tr> <td> 2015-10-01 </td> <td align="right"> 54444 </td> <td align="right"> 381833 </td> <td align="right"> 69619 </td> <td align="right"> 2271052 </td> <td align="right"> 29.74 </td> <td align="right"> 112.74 </td> <td align="right"> 99.13 </td> <td align="right"> 80.68 </td> </tr>
+  <tr> <td> 2016-01-01 </td> <td align="right"> 73143 </td> <td align="right"> 430203 </td> <td align="right"> 74778 </td> <td align="right"> 2793915 </td> <td align="right"> 74.30 </td> <td align="right"> 139.69 </td> <td align="right"> 113.89 </td> <td align="right"> 122.28 </td> </tr>
+  <tr> <td> 2016-04-01 </td> <td align="right"> 71189 </td> <td align="right"> 432455 </td> <td align="right"> 75122 </td> <td align="right"> 2871931 </td> <td align="right"> 69.65 </td> <td align="right"> 140.95 </td> <td align="right"> 114.87 </td> <td align="right"> 128.48 </td> </tr>
+  <tr> <td> 2016-07-01 </td> <td align="right"> 72129 </td> <td align="right"> 489601 </td> <td align="right"> 75518 </td> <td align="right"> 2991113 </td> <td align="right"> 71.89 </td> <td align="right"> 172.79 </td> <td align="right"> 116.01 </td> <td align="right"> 137.97 </td> </tr>
+  <tr> <td> 2016-10-01 </td> <td align="right"> 58765 </td> <td align="right"> 509507 </td> <td align="right"> 72927 </td> <td align="right"> 3070641 </td> <td align="right"> 40.04 </td> <td align="right"> 183.88 </td> <td align="right"> 108.59 </td> <td align="right"> 144.29 </td> </tr>
+  <tr> <td> 2017-02-15 </td> <td align="right"> 57150 </td> <td align="right"> 507092 </td> <td align="right"> 76550 </td> <td align="right"> 3032973 </td> <td align="right"> 36.19 </td> <td align="right"> 182.53 </td> <td align="right"> 118.96 </td> <td align="right"> 141.30 </td> </tr>
+  <tr> <td> 2017-04-01 </td> <td align="right"> 57867 </td> <td align="right"> 535009 </td> <td align="right"> 80242 </td> <td align="right"> 3197328 </td> <td align="right"> 37.90 </td> <td align="right"> 198.09 </td> <td align="right"> 129.52 </td> <td align="right"> 154.37 </td> </tr>
+   <a name=tab:growth></a>
+</table>
  
 ## JS frameworks
 
@@ -365,3 +392,7 @@ I won't go into details of the details of a software release life cycle, as they
 > diff between releases and tags. React data suggest that tag dates are better (see react ver. 0.10-0.12). 
 * download other libriaries
 * changing charts to d3 to consider
+
+### Notes
+
+pandoc -r markdown -w latex -o latex/outfile.tex README.md
